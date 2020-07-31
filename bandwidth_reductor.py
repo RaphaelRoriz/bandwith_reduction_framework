@@ -8,6 +8,33 @@ import time
 
 class bandwidth_reductor():
 
+	def larguraBanda(self,matrizBase):
+		#Atributos
+		tamanho = len(matrizBase)
+		#Largura atual
+		largura = 0
+		#Índices
+		i = 0
+		j = 1
+		
+		
+		diagonal = 1
+		while(diagonal < tamanho):
+			i = 0
+			j = diagonal
+			continua = True
+			while(j < tamanho and continua):
+				elemento = matrizBase[i][j]
+				if(elemento != 0):
+					largura = diagonal
+					continua = False
+				i += 1
+				j += 1
+			diagonal += 1
+		
+		return largura
+
+
 	def reduce(self,matrix_fileName, simetrica = True):
 
 		matrix = mmread(matrix_fileName)
@@ -19,6 +46,8 @@ class bandwidth_reductor():
 		fig, axs = plt.subplots(1, 2)
 		ax1 = axs[0]
 		ax2 = axs[1]
+
+		print(self.larguraBanda(matrix_densa))
 
 		ax1.spy(matrix_densa, markersize=1)
 		ax1.set_title('Matriz Original',y=1.08)
@@ -45,6 +74,8 @@ class bandwidth_reductor():
 		ax2.set_title('Matriz Reordenada',y=1.08)
 		plt.show()
 
+		print(self.larguraBanda(matrix_densa))
+
 
 
 if __name__== '__main__':
@@ -59,7 +90,7 @@ if __name__== '__main__':
 	print(fim - inicio)
 	
 	#simetricas
-	#reductor.reduce('G22_naoDirecionado.mtx',simetrica = True)
+	reductor.reduce('G22_naoDirecionado.mtx',simetrica = True)
 	#reductor.reduce('ca-GrQc_naoDirecionado.mtx',simetrica = True)
 	#reductor.reduce('delaunay_n12_naoDirecionado.mtx',simetrica = True)
 
