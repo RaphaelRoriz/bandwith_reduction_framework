@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 import time
 
 
-class bandwidth_reductor():
+
+class redutor_larguraBanda():
 
 	def larguraBanda(self,matrizBase):
 		#Atributos
@@ -15,8 +16,7 @@ class bandwidth_reductor():
 		largura = 0
 		#Índices
 		i = 0
-		j = 1
-		
+		j = 1	
 		
 		diagonal = 1
 		while(diagonal < tamanho):
@@ -24,7 +24,7 @@ class bandwidth_reductor():
 			j = diagonal
 			continua = True
 			while(j < tamanho and continua):
-				elemento = matrizBase[i][j]
+				elemento = matrizBase[i,j]
 				if(elemento != 0):
 					largura = diagonal
 					continua = False
@@ -34,70 +34,109 @@ class bandwidth_reductor():
 		
 		return largura
 
+	def reordenarMatriz(self,matriz,perm_array):
+		
+		tamanho = len(perm_array)
 
-	def reduce(self,matrix_fileName, simetrica = True):
+		#reordenação da matrix
+		for i in range(tamanho):
+			matriz[:,i] = matriz[perm_array,i]
+		for i in range(tamanho):
+			matriz[i,:] = matriz[i,perm_array]
 
-		matrix = mmread(matrix_fileName)
-		matrix = csr_matrix(matrix)
-		matrix_densa = matrix.todense() #para auxiliar no plot
-		#self.plotar_matrix(matrix_densa)
+		return matriz	
+
+
+	def reduzir(self,matriz_fileName, simetrica = True):
+
+		matriz = mmread(matriz_fileName)
+		matriz = csr_matrix(matriz)
+		
 		
 		plt.rcParams['figure.figsize'] = (15,15)
 		fig, axs = plt.subplots(1, 2)
 		ax1 = axs[0]
 		ax2 = axs[1]
 
-		print(self.larguraBanda(matrix_densa))
-
-		ax1.spy(matrix_densa, markersize=1)
+		matriz_densa = matriz.todense() #para auxiliar no plot
+		ax1.spy(matriz_densa, markersize=1)
 		ax1.set_title('Matriz Original',y=1.08)
 		
 		##segundo a documentação do RCM do Scipy essa transformação é necessária para matrizes assimetricas
 		if not simetrica:
-			matrix = matrix + matrix.T
+			matriz = matriz + matriz.T
+
+		print("Largura de banda original",self.larguraBanda(matriz_densa))
 
 		#vetor de permutação obtido ao aplicar o algoritmo Reverse Cuthill Mckee, utilizado para reordenar a matrix	
-		perm_array = reverse_cuthill_mckee(matrix,symmetric_mode=True)
+		perm_array = reverse_cuthill_mckee(matriz,symmetric_mode=True)
 
-		tamanho = len(perm_array)
+		
+		#reordenação da matriz
+		matriz = self.reordenarMatriz(matriz,perm_array)
 
-		#reordenação da matrix
-		for i in range(tamanho):
-			matrix[:,i] = matrix[perm_array,i]
-		for i in range(tamanho):
-			matrix[i,:] = matrix[i,perm_array]
-
-		matrix_densa = matrix.todense()
-
-		#self.plotar_matrix(matrix_densa,reordenada = True)
-		ax2.spy(matrix_densa, markersize=1)
+		matriz_densa = matriz.todense() #para auxiliar no plot
+		ax2.spy(matriz_densa, markersize=1)
 		ax2.set_title('Matriz Reordenada',y=1.08)
 		plt.show()
 
-		print(self.larguraBanda(matrix_densa))
+		print("Largura de banda reduzida",self.larguraBanda(matriz_densa))
+
+	def reduzir_medirTempo(self,matriz_fileName, simetrica = True):
+
+		inicio = time.time()
+
+		matriz = mmread(matriz_fileName)
+		matriz = csr_matrix(matriz)
+			
+		##segundo a documentação do RCM do Scipy essa transformação é necessária para matrizes assimetricas
+		if not simetrica:
+			matriz = matriz + matriz.T
+
+		#vetor de permutação obtido ao aplicar o algoritmo Reverse Cuthill Mckee, utilizado para reordenar a matrix	
+		perm_array = reverse_cuthill_mckee(matriz,symmetric_mode=True)
+
+		#reordenação da matriz
+		matriz = self.reordenarMatriz(matriz,perm_array)
+
+		fim = time.time()
+
+		return  fim - inicio
 
 
 
 if __name__== '__main__':
 
 	
-	reductor = bandwidth_reductor()
-	
-	#comentar as funções referentes a plotagem para não interferirem no tempo de execução
-	inicio = time.time()
-	#reductor.reduce('nomearquivo',simetrica = False)
-	fim = time.time()
-	print(fim - inicio)
+	redutor = redutor_larguraBanda()
+
+
+	#Plotar a matriz original e ordenada e printar a largura de banda inicial e reduzida
 	
 	#simetricas
-	reductor.reduce('G22_naoDirecionado.mtx',simetrica = True)
-	#reductor.reduce('ca-GrQc_naoDirecionado.mtx',simetrica = True)
-	#reductor.reduce('delaunay_n12_naoDirecionado.mtx',simetrica = True)
+	redutor.reduzir('G22_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir('ca-GrQc_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir('delaunay_n12_naoDirecionado.mtx',simetrica = True)
 
 	#assimetricas
-	#reductor.reduce('gre_1107_direcionado.mtx',simetrica = False)
-	#reductor.reduce('California_direcionado.mtx',simetrica = False)
-	#reductor.reduce('cage9_direcionado.mtx',simetrica = False)
+	#redutor.reduzir('gre_1107_direcionado.mtx',simetrica = False)
+	#redutor.reduzir('California_direcionado.mtx',simetrica = False)
+	#redutor.reduzir('cage9_direcionado.mtx',simetrica = False)
+
+
+	#Para medir os tempos:
+
+	#simetricas
+	#tempo = redutor.reduzir_medirTempo('G22_naoDirecionado.mtx',simetrica = True)
+	#tempo = redutor.reduzir_medirTempo('ca-GrQc_naoDirecionado.mtx',simetrica = True)
+	#tempo = redutor.reduzir_medirTempo('delaunay_n12_naoDirecionado.mtx',simetrica = True)
+
+	#assimetricas
+	#tempo = redutor.reduzir_medirTempo('gre_1107_direcionado.mtx',simetrica = False)
+	#tempo = redutor.reduzir_medirTempo('California_direcionado.mtx',simetrica = False)
+	#tempo = redutor.reduzir_medirTempo('cage9_direcionado.mtx',simetrica = False)
+
+	#print(tempo)
 	
 
 
