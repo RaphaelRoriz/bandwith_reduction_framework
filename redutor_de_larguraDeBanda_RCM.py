@@ -52,7 +52,6 @@ class redutor_larguraBanda():
 		matriz = mmread(matriz_fileName)
 		matriz = csr_matrix(matriz)
 		
-		
 		plt.rcParams['figure.figsize'] = (15,15)
 		fig, axs = plt.subplots(1, 2)
 		ax1 = axs[0]
@@ -71,16 +70,17 @@ class redutor_larguraBanda():
 		#vetor de permutação obtido ao aplicar o algoritmo Reverse Cuthill Mckee, utilizado para reordenar a matrix	
 		perm_array = reverse_cuthill_mckee(matriz,symmetric_mode=True)
 
-		
 		#reordenação da matriz
 		matriz = self.reordenarMatriz(matriz,perm_array)
 
 		matriz_densa = matriz.todense() #para auxiliar no plot
+		print("Largura de banda reduzida",self.larguraBanda(matriz_densa))
+
 		ax2.spy(matriz_densa, markersize=1)
 		ax2.set_title('Matriz Reordenada',y=1.08)
+		print("Largura de banda reduzida",self.larguraBanda(matriz_densa))
 		plt.show()
 
-		print("Largura de banda reduzida",self.larguraBanda(matriz_densa))
 
 	def reduzir_medirTempo(self,matriz_fileName, simetrica = True):
 
@@ -114,27 +114,29 @@ if __name__== '__main__':
 	#Plotar a matriz original e ordenada e printar a largura de banda inicial e reduzida
 	
 	#simetricas
-	redutor.reduzir('G22_naoDirecionado.mtx',simetrica = True)
-	#redutor.reduzir('ca-GrQc_naoDirecionado.mtx',simetrica = True)
-	#redutor.reduzir('delaunay_n12_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir('matrizes_teste/G22_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir('matrizes_teste/delaunay_n12_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir('matrizes_teste/ca-HepTh_naoDirecionado.mtx',simetrica = True)
 
 	#assimetricas
-	#redutor.reduzir('gre_1107_direcionado.mtx',simetrica = False)
-	#redutor.reduzir('California_direcionado.mtx',simetrica = False)
-	#redutor.reduzir('cage9_direcionado.mtx',simetrica = False)
+	#redutor.reduzir('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
+	#redutor.reduzir('matrizes_teste/California_direcionado.mtx',simetrica = False)
+	#redutor.reduzir('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
 
 
 	#Para medir os tempos:
 
 	#simetricas
-	#tempo = redutor.reduzir_medirTempo('G22_naoDirecionado.mtx',simetrica = True)
-	#tempo = redutor.reduzir_medirTempo('ca-GrQc_naoDirecionado.mtx',simetrica = True)
-	#tempo = redutor.reduzir_medirTempo('delaunay_n12_naoDirecionado.mtx',simetrica = True)
+	#tempo = redutor.reduzir_medirTempo('matrizes_teste/G22_naoDirecionado.mtx',simetrica = True)
+	#tempo = redutor.reduzir_medirTempo('matrizes_teste/delaunay_n12_naoDirecionado.mtx',simetrica = True)
+	#tempo = redutor.reduzir_medirTempo('matrizes_teste/ca-HepTh_naoDirecionado.mtx',simetrica = True)
+
+	
 
 	#assimetricas
-	#tempo = redutor.reduzir_medirTempo('gre_1107_direcionado.mtx',simetrica = False)
-	#tempo = redutor.reduzir_medirTempo('California_direcionado.mtx',simetrica = False)
-	#tempo = redutor.reduzir_medirTempo('cage9_direcionado.mtx',simetrica = False)
+	#tempo = redutor.reduzir_medirTempo('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
+	#tempo = redutor.reduzir_medirTempo('matrizes_teste/California_direcionado.mtx',simetrica = False)
+	#tempo = redutor.reduzir_medirTempo('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
 
 	#print(tempo)
 	
