@@ -52,12 +52,14 @@ class redutor_larguraBanda():
 		matriz = mmread(matriz_fileName)
 		matriz = csr_matrix(matriz)
 		
+		#plot da matriz
 		plt.rcParams['figure.figsize'] = (15,15)
 		fig, axs = plt.subplots(1, 2)
 		ax1 = axs[0]
 		ax2 = axs[1]
 
-		matriz_densa = matriz.todense() #para auxiliar no plot
+		matriz_densa = matriz.todense() #para auxiliar no plot e no calculo da largura de banda
+
 		ax1.spy(matriz_densa, markersize=1)
 		ax1.set_title('Matriz Original',y=1.08)
 		
@@ -83,6 +85,8 @@ class redutor_larguraBanda():
 
 
 	def reduzir_medirTempo(self,matriz_fileName, simetrica = True):
+
+		#calcula o tempo de execução para reduzir a largura de banda, reordenando a matrix
 
 		inicio = time.time()
 
@@ -138,7 +142,7 @@ if __name__== '__main__':
 	#tempo = redutor.reduzir_medirTempo('matrizes_teste/California_direcionado.mtx',simetrica = False)
 	#tempo = redutor.reduzir_medirTempo('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
 
-	#print(tempo)
+	#print("Tempo de execução: ",tempo)
 	
 
 
