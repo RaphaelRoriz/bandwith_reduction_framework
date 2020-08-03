@@ -1,10 +1,11 @@
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import reverse_cuthill_mckee
 from scipy.io import mmread
-import numpy as np
 import matplotlib.pyplot as plt
 import time
+import warnings 
 
+warnings.filterwarnings("ignore")
 
 
 class redutor_larguraBanda():
@@ -80,7 +81,6 @@ class redutor_larguraBanda():
 
 		ax2.spy(matriz_densa, markersize=1)
 		ax2.set_title('Matriz Reordenada',y=1.08)
-		print("Largura de banda reduzida",self.larguraBanda(matriz_densa))
 		plt.show()
 
 
@@ -88,11 +88,12 @@ class redutor_larguraBanda():
 
 		#calcula o tempo de execução para reduzir a largura de banda, reordenando a matrix
 
-		inicio = time.time()
-
+		
 		matriz = mmread(matriz_fileName)
 		matriz = csr_matrix(matriz)
-			
+		
+		inicio = time.time()
+
 		##segundo a documentação do RCM do Scipy essa transformação é necessária para matrizes assimetricas
 		if not simetrica:
 			matriz = matriz + matriz.T
@@ -114,6 +115,8 @@ if __name__== '__main__':
 	
 	redutor = redutor_larguraBanda()
 
+
+	#Para realizar os testes basta descomentar a linha com o comando da matriz de escolha
 
 	#Plotar a matriz original e ordenada e printar a largura de banda inicial e reduzida
 	
@@ -142,6 +145,7 @@ if __name__== '__main__':
 	#tempo = redutor.reduzir_medirTempo('matrizes_teste/California_direcionado.mtx',simetrica = False)
 	#tempo = redutor.reduzir_medirTempo('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
 
+	#descomentar nos testes de tempo de execução
 	#print("Tempo de execução: ",tempo)
 	
 
