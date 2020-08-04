@@ -137,7 +137,7 @@ if __name__== '__main__':
 	
 
 	#assimetricas
-	redutor.reduzir('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
+	#redutor.reduzir('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
 	#redutor.reduzir('matrizes_teste/California_direcionado.mtx',simetrica = False)
 	#redutor.reduzir('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
 
@@ -148,9 +148,11 @@ if __name__== '__main__':
 	#redutor.reduzir_medirTempo('matrizes_teste/G22_naoDirecionado.mtx',simetrica = True)
 	#redutor.reduzir_medirTempo('matrizes_teste/delaunay_n12_naoDirecionado.mtx',simetrica = True)
 	#redutor.reduzir_medirTempo('matrizes_teste/ca-HepTh_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir_medirTempo('matrizes_teste/ca-HepPh_naoDirecionado.mtx.mtx',simetrica = True)
+	#redutor.reduzir_medirTempo('matrizes_teste/ca-GrQc_naoDirecionado.mtx.mtx',simetrica = True)
 
 	#assimetricas
-	redutor.reduzir_medirTempo('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
+	#redutor.reduzir_medirTempo('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
 	#redutor.reduzir_medirTempo('matrizes_teste/California_direcionado.mtx',simetrica = False)
 	#redutor.reduzir_medirTempo('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
 
