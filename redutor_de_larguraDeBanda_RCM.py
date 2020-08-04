@@ -13,9 +13,9 @@ warnings.filterwarnings("ignore")
 class redutor_larguraBanda():
 
 	def lerMatriz(self,matriz_nomeArquivo):
-
+		#leitura das matrizes
 		matriz = mmread(matriz_nomeArquivo)
-		matriz = csr_matrix(matriz)
+		matriz = csr_matrix(matriz)#conversao para o formato utilizado pelo RCM
 
 		return matriz
 
