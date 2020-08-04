@@ -1,6 +1,8 @@
 Autores:
 		André Victor Moura Teixeira Sousa
+
 		Luiz Felipe de Oliveira Calvo
+
 		Raphael Fernandes Reis Roriz
 
 
