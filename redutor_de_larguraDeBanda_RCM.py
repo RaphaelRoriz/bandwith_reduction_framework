@@ -12,6 +12,14 @@ warnings.filterwarnings("ignore")
 
 class redutor_larguraBanda():
 
+	def lerMatriz(self,matriz_nomeArquivo):
+
+		matriz = mmread(matriz_nomeArquivo)
+		matriz = csr_matrix(matriz)
+
+		return matriz
+
+
 	def larguraBanda(self,matrizBase):
 		#Atributos
 		tamanho = len(matrizBase)
@@ -50,10 +58,10 @@ class redutor_larguraBanda():
 		return matriz	
 
 
-	def reduzir(self,matriz_fileName, simetrica = True):
+	def reduzir(self,matriz_nomeArquivo, simetrica = True):
 
-		matriz = mmread(matriz_fileName)
-		matriz = csr_matrix(matriz)
+
+		matriz = self.lerMatriz(matriz_nomeArquivo)
 		
 		#plot da matriz
 		plt.rcParams['figure.figsize'] = (15,15)
@@ -86,14 +94,12 @@ class redutor_larguraBanda():
 		plt.show()
 
 
-	def reduzir_medirTempo(self,matriz_fileName, simetrica = True):
+	def reduzir_medirTempo(self,matriz_nomeArquivo, simetrica = True):
 
 		#calcula o tempo de execução para reduzir a largura de banda, reordenando a matrix
 
-		
-		matriz = mmread(matriz_fileName)
-		matriz = csr_matrix(matriz)
-		
+		matriz = self.lerMatriz(matriz_nomeArquivo)
+
 		inicio = time.time()
 
 		##segundo a documentação do RCM do Scipy essa transformação é necessária para matrizes assimetricas
@@ -128,7 +134,7 @@ if __name__== '__main__':
 	#redutor.reduzir('matrizes_teste/ca-HepTh_naoDirecionado.mtx',simetrica = True)
 
 	#assimetricas
-	#redutor.reduzir('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
+	redutor.reduzir('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
 	#redutor.reduzir('matrizes_teste/California_direcionado.mtx',simetrica = False)
 	#redutor.reduzir('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
 
@@ -139,8 +145,6 @@ if __name__== '__main__':
 	#redutor.reduzir_medirTempo('matrizes_teste/G22_naoDirecionado.mtx',simetrica = True)
 	#redutor.reduzir_medirTempo('matrizes_teste/delaunay_n12_naoDirecionado.mtx',simetrica = True)
 	#redutor.reduzir_medirTempo('matrizes_teste/ca-HepTh_naoDirecionado.mtx',simetrica = True)
-
-	
 
 	#assimetricas
 	redutor.reduzir_medirTempo('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
