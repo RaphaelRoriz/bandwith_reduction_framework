@@ -106,7 +106,7 @@ class redutor_larguraBanda():
 
 		fim = time.time()
 
-		return  fim - inicio
+		print(fim - inicio)
 
 
 
@@ -134,20 +134,18 @@ if __name__== '__main__':
 	#Para medir os tempos:
 
 	#simetricas
-	#tempo = redutor.reduzir_medirTempo('matrizes_teste/G22_naoDirecionado.mtx',simetrica = True)
-	#tempo = redutor.reduzir_medirTempo('matrizes_teste/delaunay_n12_naoDirecionado.mtx',simetrica = True)
-	#tempo = redutor.reduzir_medirTempo('matrizes_teste/ca-HepTh_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir_medirTempo('matrizes_teste/G22_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir_medirTempo('matrizes_teste/delaunay_n12_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir_medirTempo('matrizes_teste/ca-HepTh_naoDirecionado.mtx',simetrica = True)
 
 	
 
 	#assimetricas
-	#tempo = redutor.reduzir_medirTempo('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
-	#tempo = redutor.reduzir_medirTempo('matrizes_teste/California_direcionado.mtx',simetrica = False)
-	#tempo = redutor.reduzir_medirTempo('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
+	#redutor.reduzir_medirTempo('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
+	#redutor.reduzir_medirTempo('matrizes_teste/California_direcionado.mtx',simetrica = False)
+	#redutor.reduzir_medirTempo('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
 
-	#descomentar nos testes de tempo de execução
-	#print("Tempo de execução: ",tempo)
-	
+
 
 
 
