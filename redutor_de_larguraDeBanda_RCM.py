@@ -132,6 +132,9 @@ if __name__== '__main__':
 	#redutor.reduzir('matrizes_teste/G22_naoDirecionado.mtx',simetrica = True)
 	#redutor.reduzir('matrizes_teste/delaunay_n12_naoDirecionado.mtx',simetrica = True)
 	#redutor.reduzir('matrizes_teste/ca-HepTh_naoDirecionado.mtx',simetrica = True)
+	#redutor.reduzir('matrizes_teste/ca-HepPh_naoDirecionado.mtx.mtx',simetrica = True)
+	#redutor.reduzir('matrizes_teste/ca-GrQc_naoDirecionado.mtx.mtx',simetrica = True)
+	
 
 	#assimetricas
 	redutor.reduzir('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
