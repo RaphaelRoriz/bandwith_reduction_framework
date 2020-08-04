@@ -1,3 +1,5 @@
+#  coding: utf-8 
+
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import reverse_cuthill_mckee
 from scipy.io import mmread
@@ -15,7 +17,7 @@ class redutor_larguraBanda():
 		tamanho = len(matrizBase)
 		#Largura atual
 		largura = 0
-		#Índices
+		#indices
 		i = 0
 		j = 1	
 		
@@ -106,7 +108,7 @@ class redutor_larguraBanda():
 
 		fim = time.time()
 
-		print(fim - inicio)
+		print("Tempo de execução: ",fim - inicio)
 
 
 
@@ -141,7 +143,7 @@ if __name__== '__main__':
 	
 
 	#assimetricas
-	#redutor.reduzir_medirTempo('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
+	redutor.reduzir_medirTempo('matrizes_teste/gre_1107_direcionado.mtx',simetrica = False)
 	#redutor.reduzir_medirTempo('matrizes_teste/California_direcionado.mtx',simetrica = False)
 	#redutor.reduzir_medirTempo('matrizes_teste/cage9_direcionado.mtx',simetrica = False)
 
